@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="description"
+    content="About Jonathan-Hart Peter T. - Software Engineer & Frontend Developer with 3+ years of expertise in React, TypeScript, Vue, and modern web technologies." />
+  <title>About - Peter Jonathan-Hart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #0a0a0a;
+      --secondary: #f5f5f5;
+      --accent: #ff3366;
+      --accent-soft: #ff6b8a;
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --border: #e0e0e0;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Bricolage Grotesque", sans-serif;
+      background: var(--secondary);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 99;
+    }
+
+    body.menu-open::before {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .grain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(245, 245, 245, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 2px solid var(--primary);
+      animation: slideDown 0.6s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .nav-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      z-index: 101;
+      text-decoration: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 101;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:active::after {
+      width: 100%;
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-top: 100px;
+      padding: 4rem 0 2rem;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page-header h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .page-header .highlight {
+      color: var(--accent);
+    }
+
+    .page-header p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 4rem 0;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-image-container {
+      position: sticky;
+      top: 120px;
+    }
+
+    .profile-image-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--card-bg);
+      border: 3px solid var(--primary);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .profile-image-wrapper:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 var(--primary);
+    }
+
+    .profile-image-wrapper::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 60px;
+      height: 60px;
+      background: var(--accent);
+      z-index: 1;
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      object-position: center -50px;
+    }
+
+    .profile-image-wrapper:hover .image-overlay {
+      opacity: 1;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      background: var(--secondary);
+      border: 2px solid var(--primary);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .about-intro h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .about-intro p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    .content-section {
+      background: var(--card-bg);
+      border: 2px solid var(--primary);
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .content-section:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--primary);
+    }
+
+    .content-section h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .content-section h3::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .content-section p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .content-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .approach-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+
+    .approach-list li {
+      padding-left: 2rem;
+      margin-bottom: 0.75rem;
+      position: relative;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .approach-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    /* Back Button */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      margin-bottom: 2rem;
+    }
+
+    .back-button:hover {
+      background: var(--accent);
+      gap: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: var(--secondary);
+      padding: 4rem 0 2rem;
+      border-top: 4px solid var(--accent);
+      margin-top: 6rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-about h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .footer-about p {
+      color: rgba(245, 245, 245, 0.8);
+      line-height: 1.8;
+    }
+
+    .footer-links h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: rgba(245, 245, 245, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      display: inline-block;
+      padding: 0.25rem 0;
+    }
+
+    .footer-links a:hover,
+    .footer-links a:active {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(245, 245, 245, 0.2);
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .about-image-container {
+        position: relative;
+        top: 0;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .profile-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-content {
+        padding: 1rem 1.5rem;
+      }
+
+      .logo {
+        font-size: 1.3rem;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 280px;
+        background: var(--card-bg);
+        flex-direction: column;
+        gap: 0;
+        padding: 6rem 2rem 2rem;
+        border-left: 3px solid var(--primary);
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        z-index: 100;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-links li {
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links li:last-child {
+        border-bottom: none;
+      }
+
+      .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 1rem 0;
+        font-size: 1.1rem;
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .page-header {
+        margin-top: 80px;
+        padding: 3rem 0 2rem;
+      }
+
+      .content-section {
+        padding: 2rem;
+      }
+
+      .content-section h3 {
+        font-size: 1.5rem;
+      }
+
+      .footer-content {
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      .nav-content {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        width: 100%;
+        right: -100%;
+        padding: 5rem 2rem 2rem;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .page-header h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+      }
+
+      .page-header p {
+        font-size: 1.1rem;
+      }
+
+      .profile-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .stat-item {
+        padding: 1.25rem 1rem;
+      }
+
+      .about-intro h2 {
+        font-size: 2rem;
+      }
+
+      .content-section {
+        padding: 1.5rem;
+      }
+
+      .content-section h3 {
+        font-size: 1.3rem;
+      }
+
+      .about-text {
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header {
+        margin-top: 100px;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <nav>
+    <div class="nav-content">
+      <a href="index.html" class="logo">PH.</a>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>About <span class="highlight">Me</span></h1>
+      <p>Get to know the person behind the code</p>
+    </div>
+
+    <section class="about-section">
+      <div class="about-content">
+        <div class="about-image-container">
+          <div class="profile-image-wrapper">
+            <img src="profilepicture.jpeg" alt="Jonathan-Hart Peter T." class="profile-image" id="profileImage" />
+          </div>
+          <div class="profile-stats">
+            <div class="stat-item">
+              <div class="stat-number">3+</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">15+</div>
+              <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">10+</div>
+              <div class="stat-label">Technologies</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-text">
+          <div class="about-intro">
+            <h2>Hello! I'm Peter</h2>
+            <p>
+              I'm a passionate fullstack developer based in Port Harcourt,
+              Nigeria, with a strong focus on creating exceptional user
+              experiences through clean, efficient code. My journey in
+              software development began at Rivers State University, where I
+              earned my Bachelor of Science in Computer Science (2018-2023).
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h3>What I Do</h3>
+            <p>
+              I specialize in building modern, responsive web applications
+              that solve real-world problems. Whether it's crafting
+              pixel-perfect user interfaces, integrating complex APIs, or
+              optimizing application performance, I bring meticulous attention
+              to detail and a user-first mindset to every project.
+            </p>
+            <p>
+              My expertise spans the entire development stack, from creating
+              intuitive frontends with React, Vue, and Next.js to building
+              robust backend systems with Node.js, Express, and PostgreSQL.
+              I'm particularly passionate about animation and
+              micro-interactions that bring applications to life.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h3>My Approach</h3>
+            <p>
+              I believe in writing code that is not only functional but also
+              maintainable and scalable. I'm a strong advocate for best
+              practices, including:
+            </p>
+            <ul class="approach-list">
+              <li>Clean, semantic code that follows industry standards</li>
+              <li>
+                Responsive design that works seamlessly across all devices
+              </li>
+              <li>
+                Performance optimization for fast, efficient applications
+              </li>
+              <li>
+                Accessibility to ensure everyone can use the products I build
+              </li>
+              <li>
+                Continuous learning to stay current with evolving technologies
+              </li>
+            </ul>
+          </div>
+
+          <div class="content-section">
+            <h3>Beyond Coding</h3>
+            <p>
+              When I'm not coding, I'm constantly exploring new technologies
+              and frameworks, contributing to open-source projects, and
+              staying up-to-date with the latest trends in web development.
+              I'm committed to continuous improvement and believe that the
+              best developers are those who never stop learning.
+            </p>
+            <p>
+              I thrive in collaborative environments where I can work with
+              cross-functional teams to bring innovative ideas to life.
+              Whether it's daily stand-ups, sprint planning sessions, or code
+              reviews, I value clear communication and teamwork.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h3>Let's Work Together</h3>
+            <p>
+              I'm always interested in hearing about new opportunities and
+              challenging projects. If you're looking for a dedicated
+              developer who combines technical expertise with creative
+              problem-solving, let's connect and discuss how I can contribute
+              to your team's success.
+            </p>
+            <p>
+              Feel free to reach out via email at
+              <a href="mailto:peerodemba@gmail.com" style="
+                    color: var(--accent);
+                    text-decoration: none;
+                    font-weight: 600;
+                  ">peerodemba@gmail.com</a>.
+            </p>
+          </div>
+
+          <a href="index.html" class="back-button">← &nbsp;&nbsp; Back to Home</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Let's Build Something Amazing</h3>
+          <p>
+            I'm always interested in hearing about new projects and
+            opportunities. Whether you have a question or just want to say hi,
+            feel free to reach out!
+          </p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:peerodemba@gmail.com">Email</a></li>
+
+            <li>
+              <a href="https://github.com/PeeroDemba" target="_blank">GitHub</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          &copy; <span id='year'><span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger menu toggle
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const navItems = document.querySelectorAll(".nav-links a");
+    const yearSpan = document.querySelector("#year");
+
+    const year = new Date().getFullYear();
+    yearSpan.textContent = `${year} Jonathan-Hart Peter T. All rights
+            reserved.`;
+
+
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navLinks.classList.toggle("active");
+      document.body.classList.toggle("menu-open");
+      document.body.style.overflow = navLinks.classList.contains("active")
+        ? "hidden"
+        : "";
+    });
+
+    // Close menu when clicking on a link
+    navItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+        document.body.classList.remove("menu-open");
+        document.body.style.overflow = "";
+      });
+    });
+
+    // Close menu when clicking outside (on overlay)
+    document.addEventListener("click", (e) => {
+      if (
+        !navLinks.contains(e.target) &&
+        !hamburger.contains(e.target) &&
+        navLinks.classList.contains("active")
+      ) {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+        document.body.classList.remove("menu-open");
+        document.body.style.overflow = "";
+      }
+    });
+  </script>
+</body>
+
+</html>

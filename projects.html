@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="description"
+    content="Projects by Jonathan-Hart Peter T. - Explore my portfolio of web applications, mobile apps, and full-stack development projects." />
+  <title>Projects - Peter Jonathan-Hart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #0a0a0a;
+      --secondary: #f5f5f5;
+      --accent: #ff3366;
+      --accent-soft: #ff6b8a;
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --border: #e0e0e0;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Bricolage Grotesque", sans-serif;
+      background: var(--secondary);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 99;
+    }
+
+    body.menu-open::before {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .grain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(245, 245, 245, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 2px solid var(--primary);
+      animation: slideDown 0.6s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .nav-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.02em;
+      z-index: 101;
+      text-decoration: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 101;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:active::after {
+      width: 100%;
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-top: 100px;
+      padding: 4rem 0 2rem;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page-header h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .page-header .highlight {
+      color: var(--accent);
+    }
+
+    .page-header p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Projects Section */
+    .projects-section {
+      padding: 4rem 0 6rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 2px solid var(--primary);
+      padding: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+      animation: fadeInUp 0.6s ease-out backwards;
+    }
+
+    .project-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .project-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .project-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .project-card:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    .project-card:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
+    .project-card:nth-child(6) {
+      animation-delay: 0.6s;
+    }
+
+    .project-card:nth-child(7) {
+      animation-delay: 0.7s;
+    }
+
+    .project-card:nth-child(8) {
+      animation-delay: 0.8s;
+    }
+
+    .project-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    @media (hover: hover) {
+      .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 8px 8px 0 var(--primary);
+      }
+    }
+
+    @media (hover: none) {
+      .project-card:active {
+        transform: translateY(-4px);
+        box-shadow: 4px 4px 0 var(--primary);
+      }
+    }
+
+    .project-content {
+      padding: 2rem;
+    }
+
+    .project-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .project-description {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-badge {
+      background: var(--secondary);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: "JetBrains Mono", monospace;
+      border: 1px solid var(--border);
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+      transition: gap 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      padding: 0.5rem 0;
+    }
+
+    @media (hover: hover) {
+      .project-link:hover {
+        gap: 1rem;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: var(--secondary);
+      padding: 4rem 0 2rem;
+      border-top: 4px solid var(--accent);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-about h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .footer-about p {
+      color: rgba(245, 245, 245, 0.8);
+      line-height: 1.8;
+    }
+
+    .footer-links h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: rgba(245, 245, 245, 0.8);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      display: inline-block;
+      padding: 0.25rem 0;
+    }
+
+    .footer-links a:hover,
+    .footer-links a:active {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(245, 245, 245, 0.2);
+      color: rgba(245, 245, 245, 0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      }
+    }
+
+    @media (max-width: 968px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-content {
+        padding: 1rem 1.5rem;
+      }
+
+      .logo {
+        font-size: 1.3rem;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 280px;
+        background: var(--card-bg);
+        flex-direction: column;
+        gap: 0;
+        padding: 6rem 2rem 2rem;
+        border-left: 3px solid var(--primary);
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        z-index: 100;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-links li {
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links li:last-child {
+        border-bottom: none;
+      }
+
+      .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 1rem 0;
+        font-size: 1.1rem;
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .page-header {
+        margin-top: 80px;
+        padding: 3rem 0 2rem;
+      }
+
+      .footer-content {
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      .nav-content {
+        padding: 1rem;
+      }
+
+      .nav-links {
+        width: 100%;
+        right: -100%;
+        padding: 5rem 2rem 2rem;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .page-header h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+      }
+
+      .page-header p {
+        font-size: 1.1rem;
+      }
+
+      .project-content {
+        padding: 1.5rem;
+      }
+
+      .project-title {
+        font-size: 1.3rem;
+      }
+
+      .project-description {
+        font-size: 0.95rem;
+      }
+
+      .tech-badge {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header {
+        margin-top: 100px;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+      }
+
+      .projects-grid {
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+
+  <nav>
+    <div class="nav-content">
+      <a href="index.html" class="logo">PH.</a>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>My <span class="highlight">Projects</span></h1>
+      <p>
+        A collection of web applications, mobile apps, and full-stack
+        solutions I've built
+      </p>
+    </div>
+
+    <section class="projects-section">
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Agrizen Backend</h3>
+            <p class="project-description">
+              Designed and developed a robust backend application using
+              Node.js, Express, Sequelize and PostgreSQL to manage loans, user
+              authentication, and notifications for a loan platform designed
+              for farmers. Implemented RESTful APIs with optimized query
+              performance and ensured data integrity through JWT-based
+              authentication.
+            </p>
+            <div class="project-tech">
+              <span class="tech-badge">🟢 Node.js</span>
+              <span class="tech-badge">🚂 Express</span>
+              <span class="tech-badge">🐘 PostgreSQL</span>
+              <span class="tech-badge">🔗 Sequelize</span>
+              <span class="tech-badge">🔐 JWT</span>
+            </div>
+            <a href="https://github.com/PeeroDemba/agrizen-backend" target="_blank" class="project-link">
+              View on GitHub →
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">
+              Crypto & GiftCard Purchase Mobile Application
+            </h3>
+            <p class="project-description">
+              Developed a fully-functional mobile application using React
+              Native, Expo, and TypeScript for cryptocurrency and gift card
+              purchases. Features responsive design, seamless backend API
+              integration, and optimized performance across different screen
+              sizes. Built for mobile phones only with React Query for
+              efficient data fetching.
+            </p>
+            <div class="project-tech">
+              <span class="tech-badge">⚛️ React Native</span>
+              <span class="tech-badge">📱 Expo</span>
+              <span class="tech-badge">📘 TypeScript</span>
+              <span class="tech-badge">🔄 React Query</span>
+              <span class="tech-badge">💨 Tailwind CSS</span>
+            </div>
+            <a href="https://wisebase.wiseinvestorx.com" target="_blank" class="project-link">
+              View Live (Mobile Only) →
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Asset Management Application</h3>
+            <p class="project-description">
+              Built a comprehensive asset management platform using React,
+              Tailwind CSS, and TypeScript. Developed responsive layouts with
+              React Hook Form for robust form handling and React Query for
+              efficient data synchronization. Integrated frontend components
+              with backend APIs for real-time data display and interaction.
+            </p>
+            <div class="project-tech">
+              <span class="tech-badge">⚛️ React</span>
+              <span class="tech-badge">💨 Tailwind CSS</span>
+              <span class="tech-badge">📘 TypeScript</span>
+              <span class="tech-badge">📝 React Hook Form</span>
+              <span class="tech-badge">🔄 React Query</span>
+            </div>
+            <a href="https://oeiassetmanagement.netlify.app/" target="_blank" class="project-link">
+              View Live →
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">
+              Trusted Connectivity - Valid Landing Page
+            </h3>
+            <p class="project-description">
+              Recreated the Valid landing page
+              (https://trustedconnectivity.valid.com/) featuring animated and
+              smooth transitions between views. Utilized React, TailwindCSS,
+              Framer Motion, and GSAP for premium user experience. Developed
+              fully responsive layouts ensuring optimal display across all
+              device sizes.
+            </p>
+            <div class="project-tech">
+              <span class="tech-badge">⚛️ React</span>
+              <span class="tech-badge">💨 Tailwind CSS</span>
+              <span class="tech-badge">🎬 Framer Motion</span>
+              <span class="tech-badge">✨ GSAP</span>
+            </div>
+            <a href="https://trustedconnectivity-valid.vercel.app/" target="_blank" class="project-link">
+              View Live →
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Wilde Landing Page</h3>
+            <p class="project-description">
+              Recreated the Wilde London landing page
+              (https://www.wilde.com/london) with stunning animations and
+              smooth transitions. Built using React, TailwindCSS, Framer
+              Motion, and GSAP. Features responsive design optimized for all
+              screen sizes with attention to performance and visual appeal.
+            </p>
+            <div class="project-tech">
+              <span class="tech-badge">⚛️ React</span>
+              <span class="tech-badge">💨 Tailwind CSS</span>
+              <span class="tech-badge">🎬 Framer Motion</span>
+              <span class="tech-badge">✨ GSAP</span>
+            </div>
+            <a href="https://wilde.netlify.app/" target="_blank" class="project-link">
+              View Live →
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">TriComm Web Application</h3>
+            <p class="project-description">
+              Developed a full-featured web application using Nuxt and
+              TypeScript. Designed and implemented the frontend architecture
+              including component structure, state management with Pinia, and
+              data flow patterns. Integrated backend APIs, resolved bugs, and
+              maintained the application for optimal performance.
+            </p>
+            <div class="project-tech">
+              <span class="tech-badge">🔺 Nuxt</span>
+              <span class="tech-badge">📘 TypeScript</span>
+              <span class="tech-badge">💨 Tailwind CSS</span>
+              <span class="tech-badge">🍍 Pinia</span>
+            </div>
+            <a href="https://tricomm.youtaf.ca/" target="_blank" class="project-link">
+              View Live →
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">YOUTAF Web Application</h3>
+            <p class="project-description">
+              Created a comprehensive web application using Nuxt, Tailwind
+              CSS, and TypeScript with real-time messaging capabilities
+              powered by WebSockets. Built responsive layouts, designed
+              frontend architecture, and integrated backend APIs for seamless
+              data interaction. Maintained and debugged the application for
+              consistent performance.
+            </p>
+            <div class="project-tech">
+              <span class="tech-badge">🔺 Nuxt</span>
+              <span class="tech-badge">📘 TypeScript</span>
+              <span class="tech-badge">💨 Tailwind CSS</span>
+              <span class="tech-badge">🔌 WebSockets</span>
+            </div>
+            <a href="https://youtaf.ca/" target="_blank" class="project-link">
+              View Live →
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Aceplora Academy Web Application</h3>
+            <p class="project-description">
+              Built an educational platform using Nuxt and TypeScript with
+              integrated payment systems including Stripe and PayPal for
+              seamless donation processing. Developed responsive layouts,
+              designed frontend architecture, and integrated third-party
+              iframes for embedding YouTube videos and forms. Maintained
+              application stability through regular bug fixes.
+            </p>
+            <div class="project-tech">
+              <span class="tech-badge">🔺 Nuxt</span>
+              <span class="tech-badge">📘 TypeScript</span>
+              <span class="tech-badge">💨 Tailwind CSS</span>
+              <span class="tech-badge">💳 Stripe</span>
+              <span class="tech-badge">💰 PayPal</span>
+            </div>
+            <a href="https://aceplora.com/" target="_blank" class="project-link">
+              View Live →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Let's Build Something Amazing</h3>
+          <p>
+            I'm always interested in hearing about new projects and
+            opportunities. Whether you have a question or just want to say hi,
+            feel free to reach out!
+          </p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="projects.html">Projects</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:peerodemba@gmail.com">Email</a></li>
+
+            <li>
+              <a href="https://github.com/PeeroDemba" target="_blank">GitHub</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>
+          &copy; <span id='year'><span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger menu toggle
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const navItems = document.querySelectorAll(".nav-links a");
+    const yearSpan = document.querySelector("#year");
+
+    const year = new Date().getFullYear();
+    yearSpan.textContent = `${year} Jonathan-Hart Peter T. All rights
+            reserved.`;
+
+
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navLinks.classList.toggle("active");
+      document.body.classList.toggle("menu-open");
+      document.body.style.overflow = navLinks.classList.contains("active")
+        ? "hidden"
+        : "";
+    });
+
+    // Close menu when clicking on a link
+    navItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+        document.body.classList.remove("menu-open");
+        document.body.style.overflow = "";
+      });
+    });
+
+    // Close menu when clicking outside (on overlay)
+    document.addEventListener("click", (e) => {
+      if (
+        !navLinks.contains(e.target) &&
+        !hamburger.contains(e.target) &&
+        navLinks.classList.contains("active")
+      ) {
+        hamburger.classList.remove("active");
+        navLinks.classList.remove("active");
+        document.body.classList.remove("menu-open");
+        document.body.style.overflow = "";
+      }
+    });
+  </script>
+</body>
+
+</html>
